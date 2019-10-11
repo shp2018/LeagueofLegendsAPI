@@ -17,7 +17,7 @@ router.get("/getUserInfo", (req, res, next)=>{
         res.json(result.data) 
     })
     .catch(err => {
-        console.log(err);
+        res.send(res.status(400).send(err))
     })
 
 })
@@ -32,8 +32,24 @@ router.get("/getMastery", (req, res, next) => {
     }).then(mas=>{
         res.json(mas.data)
     })
-    .catch(err => console.log(err));
+    .catch(err => res.status(400).send(err));
 })
+
+
+router.get("/getRank", (req, res, next) => {
+    const summonerId = req.query.summonerId
+    axios.get("https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerId, {
+        params :{
+            api_key : process.env.API_KEY,
+            summonerId : summonerId
+        }
+    }).then(rank=>{
+        console.log(summonerId)
+        res.json(rank.data)
+    })
+    .catch(err => res.status(400).send(err));
+})
+
 
 
 

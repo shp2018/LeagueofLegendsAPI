@@ -71,7 +71,7 @@ function sleepFor( sleepDuration ){
     while(new Date().getTime() < now + sleepDuration){ /* do nothing */ } 
 }
 
-function sleepThenAct(){ sleepFor(1000); 
+function sleepThenAct(){ sleepFor(1); 
     app.listen(port, function() {
         console.log('Listening in on port' + port);
       });

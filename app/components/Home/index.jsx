@@ -17,6 +17,10 @@ export default class Home extends React.Component {
       summonerId:"",
       userInfo: {},
       mastery: [],
+      error: "",
+      rank: [],
+      rankerr: ""
+      
       
     
     };
@@ -44,14 +48,21 @@ export default class Home extends React.Component {
         }
       })
       .then(result => {
-        console.log(result)
         this.setState({
           userInfo: result.data,
-          summonerId : result.data.id
+          summonerId : result.data.id,
+          error: "",
         
         });
         this.handleMastery();
-      });
+        this.handleRank();
+        
+      })
+      .catch(err => {
+        this.setState({
+          error : 'User not Found'
+        })
+      })
   }
 
   handleMastery(){
@@ -76,6 +87,35 @@ export default class Home extends React.Component {
 
 
   }
+  handleRank(){
+    axios
+    .get("/league/getRank", {
+      params: {
+        summonerId: this.state.summonerId
+      }
+    })
+    .then(res=>{
+      console.log(res, "line 95")
+      if(res.data.length == 1){
+      
+        this.setState({
+          rank: res.data,
+          
+         })
+        }
+        else{
+          this.setState({
+            rankerr: 'UNRANKED'
+          })
+        }
+      
+      
+      
+    })
+    
+
+  }
+  
 
   render() {
     
@@ -91,6 +131,7 @@ export default class Home extends React.Component {
             <button onClick={this.handleSummonerSubmit.bind(this)}>
               Search
             </button>
+            {this.state.error}
           </div>
         </div>
         <div className="row">
@@ -99,6 +140,22 @@ export default class Home extends React.Component {
         <div className="row">
           <div className="col-md-12">
             Summoner Level: {this.state.userInfo.summonerLevel}
+          </div>
+          <div className="row">
+            <div className="col-md-12">
+              Rank:
+             
+               {this.state.rank.map(x=>{
+                 return(
+                   <div>
+                     {x.queueType} {x.tier} {x.rank}</div>
+                 )
+               })}
+                {this.state.rankerr}
+              
+               
+             
+            </div>
           </div>
           <div className="row">
           <div className="col-md-12">
