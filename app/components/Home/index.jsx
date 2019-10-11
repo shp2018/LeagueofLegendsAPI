@@ -2,17 +2,22 @@ import React from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import { userInfo } from "os";
-import getIdFromName from "../../../helpers/league.js";
+import leagueFunctions from "../../../helpers/league.js";
+import { Bar } from 'react-chartjs-2';
+//import createDataForChart from "../../../helpers/league.js";
+
 
 export default class Home extends React.Component {
   constructor(props) {
-    console.log(getIdFromName(41))
+    
     super(props);
     this.state = {
       summonerName: 'Kevin2018',
       summonerId:"",
       userInfo: {},
-      mastery: []
+      mastery: [],
+      
+    
     };
   }
 
@@ -59,11 +64,12 @@ export default class Home extends React.Component {
       console.log(res)
 
       res.data.map(x =>{
-        x.championName = getIdFromName(x.championId)
+        x.championName = leagueFunctions.getIdFromName(x.championId)
         return(x)
       })
       this.setState({
-        mastery: res.data
+        mastery: res.data,
+       
       })
     })
 
@@ -99,13 +105,19 @@ export default class Home extends React.Component {
                 <div>
                 <div>{x.championName} {x.championLevel} {x.championPoints}</div>
                 <div>
-                  <img src = {'/champions/' + x.championName + '.jpg'}></img>
+                  <img className = 'champimg' src = {'/champions/' + x.championName + '.png'}></img>
                 </div>
                 </div>
               )
             })}
           </div>
         </div>
+
+        <Bar
+          data={leagueFunctions.createDataForChart(this.state.mastery.slice(0,3))}
+          width={50}
+          height={25}
+        />
       </div>
       </div>
     );
