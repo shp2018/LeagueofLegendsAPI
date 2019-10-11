@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { userInfo } from "os";
 import leagueFunctions from "../../../helpers/league.js";
 import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 //import createDataForChart from "../../../helpers/league.js";
 
 
@@ -12,7 +13,7 @@ export default class Home extends React.Component {
     
     super(props);
     this.state = {
-      summonerName: 'Kevin2018',
+      summonerName: '',
       summonerId:"",
       userInfo: {},
       mastery: [],
@@ -22,7 +23,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.handleSummonerSubmit()
+   
   }
 
   handleSummoner(e) {
@@ -80,6 +81,7 @@ export default class Home extends React.Component {
     
     return (
       <div className="container">
+        <div>
         <div className="row">
           <div className="col-md-12">
             <input
@@ -112,12 +114,19 @@ export default class Home extends React.Component {
             })}
           </div>
         </div>
+      
 
-        <Bar
+
+        <Doughnut id = 'graph'
           data={leagueFunctions.createDataForChart(this.state.mastery.slice(0,3))}
-          width={50}
-          height={25}
+          width={400}
+          height={400}
+          options={{ maintainAspectRatio: false }}
         />
+          </div>
+
+       
+     
       </div>
       </div>
     );
