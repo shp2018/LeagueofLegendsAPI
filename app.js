@@ -14,6 +14,7 @@ var routes = require('./routes/index');
 var league = require('./routes/league')
 
 
+
 var app = express();
 
 // view engine setup
@@ -32,6 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/', routes);
 app.use('/league', league); 
+
 
 
 

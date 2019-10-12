@@ -23,7 +23,8 @@ router.get("/getUserInfo", (req, res, next)=>{
 })
 
 router.get("/getMastery", (req, res, next) => {
-    const summonerId = req.query.summonerId
+    const summonerId = req.query.summonerId;
+    console.log(summonerId);
     axios.get("https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + summonerId, {
         params :{
             api_key : process.env.API_KEY,
@@ -49,6 +50,21 @@ router.get("/getRank", (req, res, next) => {
     })
     .catch(err => res.status(400).send(err));
 })
+
+router.get("/getMatchHistory", (req, res, next) => {
+    const accountId = req.query.accountId
+    axios.get("https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountId, {
+        params :{
+            api_key : process.env.API_KEY,
+            accountId : accountId
+        }
+    }).then(match=>{
+        console.log(accountId)
+        res.json(match.data)
+    })
+    .catch(err => res.status(400).send(err));
+})
+
 
 
 

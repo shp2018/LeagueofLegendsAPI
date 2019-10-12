@@ -1,6 +1,84 @@
 #graph {
     position: relative;
-    top: -450px;
+    top: -455px;
     left : 250px;
+    z-index: -1;
 
+}
+
+.search-bar{
+    position: relative;
+    right: -400px;
+    top: -30px;
+}
+
+button , input{
+    position: relative;
+    right: -800px;
+    top: -60px;
+    border-radius: 5px;
+    height: 30px;
+}
+input{
+    width: 300px;
+}
+.navbar{
+    background-color: #0077ff;
+    border-radius: 0px;
+   
+}
+
+a {
+    color:white
+}
+.iconImg{
+    width:150px;
+    height: 150px;
+    z-index: -1;
+}
+#Name{
+    position: relative;
+    left: 200px;
+    top: -150px;
+    font-size: 35px;
+    font-weight: bold;
+}
+.lvimg{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: -54px;
+    margin-left: -516px;
+    width: 44px;
+    height: 24px;
+    padding-top: 3px;
+    box-sizing: border-box;
+    background: url(https://pub-static.haozhaopian.net/assets/stickers/drawPolygon_10/aca1b8b1-5e4e-4be0-87a1-14ca67e00d10_medium_thumb.jpg);
+    background-size: 100%;
+    line-height: 17px;
+    font-family: Helvetica,AppleSDGothic,"Apple SD Gothic Neo",AppleGothic,Arial,Tahoma;
+    font-size: 14px;
+    text-align: center;
+    color: #eabd56;
+}
+
+.rank{
+    position: relative;
+    left: 220px;
+    top: -120px;
+}
+
+.rankimg{
+    width: 120px;
+    height: 120px;
+    position: relative;
+    left: -30px;
+    top: -35px;
+
+}
+.rankinfo{
+    position: absolute;
+    left:100px;
+    font-size:15px;
+    font-weight: bold;
 }
