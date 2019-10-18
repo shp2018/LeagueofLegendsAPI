@@ -7,21 +7,47 @@ import { Bar } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
 //import createDataForChart from "../../../helpers/league.js";
 
-export default class Home extends React.Component {
+export default class Rotation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-  
+        rotation:{},
+        playerRotation: [],
+        newplayerRotation:[]
+        
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+
+    axios.get("/league/freeRotation")
+   
+        .then(res => {
+            console.log(res);
+    
+    
+            this.setState({
+              rotation: res.data
+            });
+          });
+  
+    
+
+
+
+   
+  }
+ 
+
+
+   
+
 
 
   render() {
     return (
-  <div>
-       <nav className="navbar">
+      <div>
+        <nav className="navbar">
           <div className="container-fluid">
             <div className="navbar-header">
               <a className="navbar-brand" href="/">
@@ -42,16 +68,15 @@ export default class Home extends React.Component {
           </div>
         </nav>
         <div>
-          <img id='lol' src='https://dotesports-media.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2019/10/01201921/worlds2019-1.png'>
-          </img>
+            Rotation :{JSON.stringify(this.state.rotation)}
+
+           
+            
         </div>
-        <div>
-          <img id="logo" src='Logo.png'></img>
-        </div>
-        
-      </div>
+       
+  </div>
     );
   }
 }
 
-module.exports = Home;
+module.exports = Rotation;

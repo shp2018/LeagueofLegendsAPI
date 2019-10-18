@@ -5,13 +5,14 @@ import { userInfo } from "os";
 import leagueFunctions from "../../../helpers/league.js";
 import { Bar } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
+import { withRouter } from 'react-router';
 //import createDataForChart from "../../../helpers/league.js";
 
 export default class Summoner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      summonerName: "",
+      summonerName: this.props.params.summonerName || "",
       summonerId: "",
       accountId: "",
       userInfo: {},
@@ -21,24 +22,30 @@ export default class Summoner extends React.Component {
       rankerr: "",
       matchHistory: [],
       gameId: [],
-      icon: ""
+      icon: "",
+      region: this.props.params.region || "NA1"
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+     this.handleSummonerSubmit();
+  }
 
   handleSummoner(e) {
     this.setState({
       summonerName: e.target.value
     });
   }
+
   handleSummonerSubmit(e) {
     console.log(this.state.summonerName);
+    console.log(this.state.region, "region");
 
     axios
       .get("/league/getUserInfo", {
         params: {
-          summonerName: this.state.summonerName
+          summonerName: this.state.summonerName,
+          region: this.state.region
         }
       })
       .then(result => {
@@ -53,11 +60,16 @@ export default class Summoner extends React.Component {
         this.handleMastery();
         this.handleRank();
         this.handleMatchHistory();
+        
       })
+
       .catch(err => {
-        this.setState({
-          error: "User not Found"
-        });
+        if (e) {
+          this.setState({
+            error: "User not Found"
+          });
+        }
+
       });
   }
 
@@ -65,7 +77,8 @@ export default class Summoner extends React.Component {
     axios
       .get("/league/getMastery", {
         params: {
-          summonerId: this.state.summonerId
+          summonerId: this.state.summonerId,
+          region: this.state.region
         }
       })
       .then(res => {
@@ -84,7 +97,8 @@ export default class Summoner extends React.Component {
     axios
       .get("/league/getRank", {
         params: {
-          summonerId: this.state.summonerId
+          summonerId: this.state.summonerId,
+          region: this.state.region
         }
       })
       .then(res => {
@@ -92,8 +106,8 @@ export default class Summoner extends React.Component {
 
         if (res.data.length == 0)
           this.setState({
-            rankerr: "UNRANKED",
-            rank: res.data
+            rankerr: "RANKED_SOLO_5x5",
+            rank: [{ tier: "UNRANKED" }]
           });
         else {
           this.setState({
@@ -108,7 +122,8 @@ export default class Summoner extends React.Component {
     axios
       .get("/league/getMatchHistory", {
         params: {
-          accountId: this.state.accountId
+          accountId: this.state.accountId,
+          region: this.state.region
         }
       })
       .then(res => {
@@ -116,7 +131,19 @@ export default class Summoner extends React.Component {
         this.setState({
           matchHistory: res.data.matches
         });
+         this.props.history.push(`/summoner/${this.state.region}/${this.state.summonerName}`)
       });
+  }
+  handleRegion(e) {
+    this.setState({
+      region: e.target.value
+    });
+  }
+  handleKeyDown(e) {
+    if (e.key === 'Enter') {
+      console.log('do validate');
+      this.handleSummonerSubmit();
+    }
   }
   render() {
     return (
@@ -124,19 +151,19 @@ export default class Summoner extends React.Component {
         <nav className="navbar">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand" href="/">
                 League Stat Check
               </a>
             </div>
             <ul className="nav navbar-nav">
               <li className="active">
-                <a href="#">Home</a>
+                <a href="/summoner">Summoner Search</a>
               </li>
               <li>
-                <a href="#">Match History</a>
+                <a href="/match">Match History</a>
               </li>
               <li>
-                <a href="#">Free Champion Rotation</a>
+                <a href="/rotation">Free Champion Rotation</a>
               </li>
             </ul>
           </div>
@@ -146,8 +173,11 @@ export default class Summoner extends React.Component {
             <div className="row">
               <div className="col-md-12">
                 <input
+                 autoFocus
                   className="seach-bar"
+                  onKeyDown={this.handleKeyDown.bind(this)}
                   onChange={this.handleSummoner.bind(this)}
+                  placeholder="search up a summoner name"
                 ></input>
                 <button
                   className="seach-bar"
@@ -158,60 +188,76 @@ export default class Summoner extends React.Component {
                 {this.state.error}
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-12">
-                <div>
-                  <img
-                    className="iconImg"
-                    src={"/icon/" + this.state.icon + ".png"}
-                  ></img>
-                  
-                 <div className = 'lvimg'>
-                 {this.state.userInfo.summonerLevel}
-                 </div>
-                </div>
-                <span id="Name">{this.state.userInfo.name}</span>
-              </div>
+            <div>
+              <select id="region" onChange={this.handleRegion.bind(this)}>
+                <option value="NA1">NA1</option>
+                <option value="	KR">KR</option>
+                <option value="	EUN1">EUN1</option>
+                <option value="	EUW1">EUW1</option>
+                <option value="BR1">BR1</option>
+                <option value="JP1">JP1</option>
+                <option value="LA1">LA1</option>
+                <option value="LA2">LA2</option>
+                <option value="	OC1">OC1</option>
+                <option value="	TR1">TR1</option>
+                <option value="RU">RU</option>
+                <option value="PBE1">PBE1</option>
+              </select>
             </div>
+
             <div className="row">
-            
               <div className="row">
                 <div className="col-md-12 rank">
-                
-                  
                   {this.state.rank.map(x => {
                     return (
                       <div>
-                      <div className = 'rankinfo'>
-                        {x.queueType} {x.tier} {x.rank}
-                        </div>
                         <div>
-                        <img
+                          <img
                             className="rankimg"
                             src={"/rank/" + x.tier + ".png"}
                           ></img>
+                          <div className="row">
+                            <div className="col-md-12">
+                              <img
+                                className="iconImg"
+                                src={"/icon/" + this.state.icon + ".png"}
+                              ></img>
+
+                              <div className="lvimg">
+                                {this.state.userInfo.summonerLevel}
+                              </div>
+                            </div>
+                            <span id="Name">{this.state.userInfo.name}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="rankinfo">
+                            {this.state.rankerr} {x.queueType} {x.tier} {x.rank}
+                          </div>
+                        </div>
+                        <hr />
                       </div>
-                      </div>
-                      
                     );
                   })}
-                  {this.state.rankerr}
                 </div>
               </div>
               <div className="row">
                 <div className="col-md-12">
-                  Masteries:{" "}
                   {this.state.mastery.slice(0, 3).map(x => {
                     return (
                       <div>
-                        <div>
-                          {x.championName} {x.championLevel} {x.championPoints}
-                        </div>
-                        <div>
+                        <div className="champname">{x.championName}</div>
+
+                        <div id="wrapper">
                           <img
                             className="champimg"
                             src={"/champions/" + x.championName + ".png"}
                           ></img>
+                          <img
+                            className="masteryImg"
+                            src={"/rank/" + x.championLevel + ".png"}
+                          ></img>
+                          <p className="text">{x.championPoints}</p>
                         </div>
                       </div>
                     );
@@ -224,8 +270,8 @@ export default class Summoner extends React.Component {
                 data={leagueFunctions.createDataForChart(
                   this.state.mastery.slice(0, 3)
                 )}
-                width={400}
-                height={400}
+                width={800}
+                height={800}
                 options={{ maintainAspectRatio: false }}
               />
             </div>
@@ -241,9 +287,15 @@ export default class Summoner extends React.Component {
           </div> */}
           </div>
         </div>
+        <div></div>
       </div>
     );
   }
 }
+Summoner.propTypes = {
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func.isRequired
+  }).isRequired
+};
 
 module.exports = Summoner;
