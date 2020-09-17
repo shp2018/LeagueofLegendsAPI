@@ -143,8 +143,12 @@ export default class Summoner extends React.Component {
     if (e.key === 'Enter') {
       console.log('do validate');
       this.handleSummonerSubmit();
+
     }
+    
   }
+  
+
   render() {
     return (
       <div>
@@ -231,7 +235,7 @@ export default class Summoner extends React.Component {
                           </div>
                         </div>
                         <div>
-                          <div className="rankinfo">
+                        <div className="rankinfo">
                             {this.state.rankerr} {x.queueType} {x.tier} {x.rank}
                           </div>
                         </div>

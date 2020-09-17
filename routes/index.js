@@ -10,6 +10,12 @@ router.get("/summoner", (req, res, next)=>{
 router.get("/rotation", (req, res, next)=>{
     res.render('index')
 })
+router.get("/rotation/classic", (req, res, next)=>{
+    res.render('index')
+})
+router.get("/rotation/newaccounts", (req, res, next)=>{
+    res.render('index')
+})
 
 router.get("/match", (req, res, next)=>{
     res.render('index')

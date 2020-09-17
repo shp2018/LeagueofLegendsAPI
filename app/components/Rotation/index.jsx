@@ -9,13 +9,24 @@ import { Doughnut } from "react-chartjs-2";
 
 export default class Rotation extends React.Component {
   constructor(props) {
+    var today = new Date(),
+
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    
     super(props);
+    
     this.state = {
         rotation:{},
-        playerRotation: [],
-        newplayerRotation:[]
+        freeChampionId: [],
+        freeChampionIdsForNewPlayer: [],
+        champId: [],
+        newChampId: [],
+        currentDate: date
+        
+        
         
     };
+    
   }
 
   componentDidMount() {
@@ -25,27 +36,29 @@ export default class Rotation extends React.Component {
         .then(res => {
             console.log(res);
     
-    
+            
             this.setState({
-              rotation: res.data
+              rotation: res.data,
+              freeChampionId: res.data.freeChampionIds,
+              freeChampionIdsForNewPlayer: res.data.freeChampionIdsForNewPlayers
             });
+            this.handleChampId();
+            this.handletime();
+            
           });
-  
-    
 
-
-
-   
   }
- 
 
 
-   
+  
+
+
 
 
 
   render() {
     return (
+      
       <div>
         <nav className="navbar">
           <div className="container-fluid">
@@ -67,14 +80,39 @@ export default class Rotation extends React.Component {
             </ul>
           </div>
         </nav>
+     
+     
         <div>
-            Rotation :{JSON.stringify(this.state.rotation)}
-
-           
-            
+          
         </div>
-       
+        <nav className="navbarRotation">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              
+            </div>
+            <ul className="nav navbar-nav">
+              <li className="active">
+                <a href="/rotation/classic">Classic</a>
+              </li>
+              <li>
+                <a href="/rotation/newaccounts">New Accounts</a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+        <div>
+        <img className="RotationBG" src="https://images4.alphacoders.com/600/thumb-1920-600528.png" alt="Teemo"></img>
+        </div>
+        <div>
+          <p className="rotationTitle" >This Week's Free Rotations</p>
+        </div>
+        <div className="time">
+        <p>{this.state.currentDate}</p>
+      </div>
+      
   </div>
+  
     );
   }
 }

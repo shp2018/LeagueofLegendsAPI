@@ -49,6 +49,7 @@ export default class Home extends React.Component {
           <img id="logo" src='Logo.png'></img>
         </div>
         
+        
       </div>
     );
   }

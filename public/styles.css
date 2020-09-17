@@ -34,6 +34,15 @@ input{
    
 }
 
+.navbarRotation{
+    background-color: black;
+    border-radius: 0px;
+    z-index:10;
+ position: relative;
+    top: -25px;
+    
+}
+
 a {
     color:white
 }
@@ -85,11 +94,11 @@ a {
 
 }
 .rankinfo{
-    position: absolute;
+    position: relative;
     left:80px;
     font-size:15px;
     font-weight: bold;
-    top: 220px;
+    top: -130px;
 }
 
 .champimg{
@@ -116,7 +125,31 @@ a {
     left: -100px;
     bottom: -73px;
 }
+.matchchamp{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    left: 210px;
 
+}
+.rotationChamps{
+    
+  margin-left: 10px;
+}
+.RotationBG{
+    position: absolute;
+    width:1450px;
+    height:900px;
+    z-index:-1;
+    top:98px;
+}
+
+.rotationchamp{
+    border-radius: 50%;
+    position: relative;
+    top:10px;
+}
 #wrapper .text {
     position:relative;
     bottom:30px;
@@ -175,3 +208,103 @@ a {
     font-weight: bold;
     font-size:15;
 }
+.rotationTitle{
+    position: absolute;
+    font-weight: bold;
+    font-size:80px;
+    z-index: 1;
+    Color: black;
+    right:250px;
+    top:130px;
+    font-family: Impact, fantasy;
+}
+.time{
+    position: absolute;
+    font-weight: bold;
+    font-size:80px;
+    z-index: 2;
+    Color: rgb(32, 27, 27);
+    right:550px;
+    top:300px;
+    font-family: Impact, fantasy;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #000000;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.spellimg{
+    width:25px;
+    height:25px;
+    border-radius: 4px;
+    position:relative;
+    
+    margin-right: 5px;
+    
+}
+
+.success {
+    background-color: lightgreen;
+}
+
+.danger {
+    background-color: palevioletred;
+}
+
+span.img span1 {display: none; position: absolute; bottom: 0; left: 0; right: 0; background: #333; color: #fff; }
+span.img:hover span1 {display: block; }
+

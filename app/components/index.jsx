@@ -4,6 +4,8 @@ import { Router, Route, Link, browserHistory } from 'react-router';
 import Home from './Home/index.jsx';
 import Summoner from './Summoner/index.jsx'
 import Rotation from './Rotation/index.jsx'
+import RotationClassic from './RotationCl/index.jsx'
+import RotationNew from './RotationNew/index.jsx'
 import Match from './Match/index.jsx'
 
 
@@ -12,6 +14,8 @@ ReactDOM.render((
       <Route path="/" component={Home}></Route>
     
       <Route path="/rotation" component={Rotation}></Route>
+      <Route path="/rotation/classic" component={RotationClassic}></Route>
+      <Route path="/rotation/newaccounts" component={RotationNew}></Route>
       <Route path="/match(/:region)(/:summonerName)" component={Match}></Route>
       <Route path="/summoner(/:region)(/:summonerName)" component={Summoner}></Route>
      
