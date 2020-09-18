@@ -26,7 +26,8 @@ export default class Summoner extends React.Component {
       icon: "",
       region: this.props.params.region || "NA1",
       matchinfo: [],
-      isLoading: false
+      isLoading: false,
+      background: "https://a-static.besthdwallpaper.com/league-of-legends-lol-digital-artwork-wallpaper-3554x1999-21488_53.jpg"
     };
   }
 
@@ -54,6 +55,9 @@ export default class Summoner extends React.Component {
           accountId: result.data.accountId,
           summonerId: result.data.id,
           error: ""
+        });
+        this.setState({
+          background: "https://i.ytimg.com/vi/yHt38mT2mwo/maxresdefault.jpg"
         });
 
         this.handleMatchHistory();
@@ -126,7 +130,9 @@ export default class Summoner extends React.Component {
       this.handleSummonerSubmit();
 
       this.setState({
-        isLoading: true
+        isLoading: true,
+        background: "https://i.ytimg.com/vi/yHt38mT2mwo/maxresdefault.jpg"
+       
       });
     }
   }
@@ -193,12 +199,18 @@ export default class Summoner extends React.Component {
                 </select>
               </div>
             </div>
+            <div>
+              
+            </div>
           </div>
           <div className="loader">Loading...</div>
         </div>
+        
       );
+      
     }
     return (
+     
       <div>
         <nav className="navbar">
           <div className="container-fluid">
@@ -257,7 +269,12 @@ export default class Summoner extends React.Component {
               </select>
             </div>
           </div>
+         
+          
+          
+        
         </div>
+        
         <div>
           {this.state.matchinfo.map(x => {
             return (
@@ -494,7 +511,10 @@ export default class Summoner extends React.Component {
               </div>
             );
           })}
+          
+              
         </div>
+        <img className="MatchBG" src={this.state.background} alt="Background"></img>
       </div>
     );
   }

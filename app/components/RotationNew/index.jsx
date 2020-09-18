@@ -89,10 +89,8 @@ export default class RotationNew extends React.Component {
           
         {this.state.freeChampionIdsForNewPlayer.map(x => {
             return (
-              <span className="rotationChamps">
-              {leagueFunctions.getIdFromName(
-                x
-              )}
+               <span id="wrapper">
+               
                <img
                             className="rotationchamp"
                             src={
@@ -103,6 +101,11 @@ export default class RotationNew extends React.Component {
                               ".png"
                             }
                           ></img>
+                           <span className="champtext">
+              {leagueFunctions.getIdFromName(
+                x
+              )}
+              </span>
               </span>
               
 

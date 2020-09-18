@@ -15,13 +15,42 @@ body{
     top: -30px;
 }
 
+
+
+.seachbarMain{
+    position: relative;
+    top:-600px;
+    right:-350px;
+    overflow: visible;
+    
+    border-radius: 10px;
+    height: 50px;
+    width: 700px;
+    z-index: 1;
+    
+
+
+}
+.seachbuttonMain{
+    height: 35px;
+    width: 55px;
+    position: relative;
+    top:-600px;
+    right:-290px;
+    background-color: #0077ff;
+    border: none;
+    color:white;
+    z-index: 1;
+    
+}
+
 button , input{
     position: relative;
     right: -800px;
     top: -60px;
     border-radius: 5px;
     height: 30px;
-    z-index:9999999999;
+    z-index:100000000;
 }
 input{
     width: 300px;
@@ -144,6 +173,20 @@ a {
     z-index:-1;
     top:98px;
 }
+.SummonerBG{
+    position: absolute;
+    width:1423px;
+    height:700px;
+    z-index:-1;
+   top:50px;
+}
+.MatchBG{
+    position: absolute;
+    width:1423px;
+    height:800px;
+    z-index:-1;
+   top:50px;
+}
 
 .rotationchamp{
     border-radius: 50%;
@@ -165,6 +208,25 @@ a {
     position:relative;
     top: -170px;
     left:30px;
+    z-index: 99999;
+    }
+
+
+    #wrapper .champtext {
+    
+    bottom:30px;
+    left:0px;
+    visibility:hidden;
+    }
+    
+    #wrapper:hover .champtext {
+    visibility:visible;
+    color:black;
+    font-size:20px;
+    font-weight:bold;
+   
+    top: -10px;
+    left:-100px;
     z-index: 99999;
     }
 
@@ -191,6 +253,16 @@ a {
        height: 28px;
        width: 80px;
 
+   }
+   #regionMain {
+    position: relative;
+    right: -930px;
+    top: -640px;
+    z-index: 9999999999;
+    height: 30px;
+    width: 50px;
+    border: none;
+    
    }
 
    .match {

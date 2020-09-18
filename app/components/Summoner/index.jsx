@@ -23,12 +23,15 @@ export default class Summoner extends React.Component {
       matchHistory: [],
       gameId: [],
       icon: "",
-      region: this.props.params.region || "NA1"
+      region: this.props.params.region || "NA1",
+      background:"https://lolstatic-a.akamaihd.net/frontpage/apps/prod/rg-league-display-2017/en_US/cb24025fade09e3f965776440dffcc65024d3266/assets/img/content/splash/content-original-championillustrations-group-slashes.jpg"
     };
   }
 
   componentDidMount() {
      this.handleSummonerSubmit();
+    
+
   }
 
   handleSummoner(e) {
@@ -60,7 +63,10 @@ export default class Summoner extends React.Component {
         this.handleMastery();
         this.handleRank();
         this.handleMatchHistory();
-        
+        this.setState({
+          background: "https://i.ytimg.com/vi/yHt38mT2mwo/maxresdefault.jpg"
+        });
+  
       })
 
       .catch(err => {
@@ -143,6 +149,9 @@ export default class Summoner extends React.Component {
     if (e.key === 'Enter') {
       console.log('do validate');
       this.handleSummonerSubmit();
+      this.setState({
+        background: "https://i.ytimg.com/vi/yHt38mT2mwo/maxresdefault.jpg"
+      });
 
     }
     
@@ -291,7 +300,42 @@ export default class Summoner extends React.Component {
           </div> */}
           </div>
         </div>
-        <div></div>
+        <div>
+        <div>
+                <input
+                 autoFocus
+                  className="seachbarMain"
+                  onKeyDown={this.handleKeyDown.bind(this)}
+                  onChange={this.handleSummoner.bind(this)}
+                  placeholder="search up a summoner name"
+                ></input>
+                <button
+                  className="seachbuttonMain"
+                  onClick={this.handleSummonerSubmit.bind(this)}
+                >
+                  Search
+                </button>
+                {this.state.error}
+              </div>
+              <div>
+              <select id="regionMain" onChange={this.handleRegion.bind(this)}>
+                <option value="NA1">NA1</option>
+                <option value="	KR">KR</option>
+                <option value="	EUN1">EUN1</option>
+                <option value="	EUW1">EUW1</option>
+                <option value="BR1">BR1</option>
+                <option value="JP1">JP1</option>
+                <option value="LA1">LA1</option>
+                <option value="LA2">LA2</option>
+                <option value="	OC1">OC1</option>
+                <option value="	TR1">TR1</option>
+                <option value="RU">RU</option>
+                <option value="PBE1">PBE1</option>
+              </select>
+            </div>
+
+        </div>
+        <img className="SummonerBG" src={this.state.background} alt="Background"></img>
       </div>
     );
   }
